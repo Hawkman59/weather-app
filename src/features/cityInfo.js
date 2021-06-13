@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Button, View, TextInput } from 'react-native';
 
-const Search = () => {
+const CityInfo = (props) => {
   const [text, setText] = useState('');
+  
   return (
     <View style={{padding: 10}}>
       <TextInput
@@ -22,4 +23,4 @@ const Search = () => {
   );
 }
 
-export default Search;
+export default CityInfo;
