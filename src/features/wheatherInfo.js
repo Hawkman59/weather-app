@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ApiHandler from '../app/apiHandler';
-import { ActivityIndicator, Button, Card, Title, Paragraph } from 'react-native-paper';
-import WeatherInfoContent from './wheatherInfoContent';
+import { ActivityIndicator, Card, Paragraph } from 'react-native-paper';
+import WeatherToday from './wheatherToday';
 
 const WeatherInfo = (props) => {
   const [data, setData] = useState(null);
@@ -15,23 +15,19 @@ const WeatherInfo = (props) => {
  
 
   return (
-    <Card>
-        <Card.Title title="Wetter"/>
-        <Card.Content>
-          {data == null && 
-            <ActivityIndicator animating={true} />
-          }
+    <React.Fragment>
+      {data == null && 
+        <ActivityIndicator animating={true} />
+      }
 
-          {(data != null && data.current != null)  && 
-            <WeatherInfoContent data={data}></WeatherInfoContent>
-          }
+      {(data != null && data.current != null)  && 
+        <WeatherToday data={data}></WeatherToday>
+      }
 
-          {(data != null && data.cod != 200) && 
-            <Paragraph>{data.message}</Paragraph>
-          }
-            
-        </Card.Content>
-  </Card>
+      {(data != null && data.cod != 200) && 
+        <Paragraph>{data.message}</Paragraph>
+      }
+    </React.Fragment>
   );
 }
 

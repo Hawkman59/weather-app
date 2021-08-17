@@ -19,13 +19,24 @@ class Formatter{
     static formatTime(time){
         var d = new Date(time * 1000)
         if (d.getHours() < 10) {
-            return "0" + d.getHours();
+            return "0" + d.getHours() + ":00";
         }
-        return d.getHours();
+        return d.getHours() + ":00";
     }
 
     static formatTemp(temp){
-        return Math.floor( temp )
+        return Math.floor( temp ) + " °C"
+    }
+
+    static formatDate(utc){
+        var d = new Date(utc * 1000)
+
+        return d.toLocaleString('de-DE')
+    }
+
+    static formatPop(pop){
+
+        return pop * 10 + "%"
     }
 }
 export default Formatter
