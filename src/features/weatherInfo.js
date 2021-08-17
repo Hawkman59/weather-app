@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ApiHandler from '../app/apiHandler';
-import { ActivityIndicator, Card, Paragraph } from 'react-native-paper';
-import WeatherToday from './wheatherToday';
+import { ActivityIndicator, Paragraph } from 'react-native-paper';
+import WeatherToday from './weatherToday';
+import WeatherForecast from './weatherForecast';
 
 const WeatherInfo = (props) => {
   const [data, setData] = useState(null);
@@ -22,6 +23,10 @@ const WeatherInfo = (props) => {
 
       {(data != null && data.current != null)  && 
         <WeatherToday data={data}></WeatherToday>
+      }
+
+      {(data != null && data.current != null)  && 
+        <WeatherForecast data={data}></WeatherForecast>
       }
 
       {(data != null && data.cod != 200) && 

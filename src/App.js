@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import WeatherInfo from './features/wheatherInfo';
+import WeatherInfo from './features/weatherInfo';
 
 import ApiHandler from './app/apiHandler';
 

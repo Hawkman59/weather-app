@@ -1,7 +1,6 @@
 import React from 'react';
-import { List, DataTable, Card } from 'react-native-paper';
-import { ScrollView, View, Text, StyleSheet, Image} from 'react-native';
-import { Title, Caption, Subheading } from 'react-native-paper';
+import { Card,Title, Caption, Subheading } from 'react-native-paper';
+import { ScrollView, View, StyleSheet, Image} from 'react-native';
 import Formatter from '../app/formatter';
 
 const WeatherToday = (props) => {
@@ -88,7 +87,7 @@ const WeatherToday = (props) => {
     }
     
   return (
-    <Card>
+    <Card style={{marginBottom: 20}}>
         <Card.Title title="Heute" subtitle={Formatter.formatDate(props.data.current.dt)}/>
         <Card.Content>
             {createCurrentWeather()}
