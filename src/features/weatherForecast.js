@@ -1,22 +1,18 @@
 import React from 'react';
 import { List, DataTable, Card } from 'react-native-paper';
-import { ScrollView, View, Text, StyleSheet, Image} from 'react-native';
-import { Title, Caption, Subheading } from 'react-native-paper';
+import { ScrollView, View, StyleSheet, Image} from 'react-native';
+import { Text, Caption, Subheading } from 'react-native-paper';
 import Formatter from '../app/formatter';
 
 const WeatherForecast = (props) => {
 
     const styles = StyleSheet.create({
-        containerRow: {
-            minHeight: 60,
+        dayRow: {
+            minHeight: 50,
             flexDirection: "row",
             alignItems: "center"
         },
-        containerColumn: {
-            flexDirection: "column",
-            alignItems: "flex-end"
-        },
-        hourlyColumn: {
+        dailyColumn: {
             flexDirection: "column",
             alignItems: "center",
             padding: 10,
@@ -34,55 +30,40 @@ const WeatherForecast = (props) => {
         }
       });
 
-    const createCurrentWeather = () => {
-        var weatherIconURL = "http://openweathermap.org/img/wn/" + props.data.current.weather[0].icon + "@2x.png"
+    const createDayEntry = (day) => {
+        var weatherIconURL = "http://openweathermap.org/img/wn/" + day.weather[0].icon + "@2x.png"
 
-        return(
-            <View key="current-temp" style={styles.containerRow}>
+        return (
+            <View key={day.dt} style={styles.dayRow}>
+                <View style={{flex: 3}}>
+                    <Subheading>{Formatter.getNameOfDay(day.dt)}</Subheading>
+                </View>
                 <View style={{flex: 1}}>
+                    <Caption>{Formatter.formatPop(day.pop)}</Caption>
+                </View>
+                <View style={{flex: 3}}>
                     <Image source={{uri: weatherIconURL}}
                     style={styles.weatherIcon}
                     />
                 </View>
-                <View style={{flex: 2}}>
-                    <Title>{Formatter.formatTemp(props.data.current.temp)}</Title>
-                </View>
                 <View style={{flex: 3}}>
-                    <View style={styles.containerColumn}>
-                        <Caption>{props.data.current.weather[0].description}</Caption>
-                        <Caption>{"Gefühlt wie: " + Formatter.formatTemp(props.data.current.feels_like)}</Caption>
-                    </View>
+                <Text>{Formatter.formatTemp(day.temp.max) + " / " + Formatter.formatTemp(day.temp.min)}</Text>
                 </View>
             </View>
         )
     }
 
-    const createHourEntry = (hour) => {
-        var weatherIconURL = "http://openweathermap.org/img/wn/" + hour.weather[0].icon + "@2x.png"
+    const createDaysView = ()=>{
+        var days = []
 
-        return (
-            <View key={hour.dt} style={styles.hourlyColumn}>
-                <Caption style={{width: 35}} numberOfLines={1}>{Formatter.formatTime(hour.dt)}</Caption>
-                <Image source={{uri: weatherIconURL}}
-                        style={styles.weatherIconHour}
-                />
-                <Subheading>{Formatter.formatTemp(hour.temp)}</Subheading>
-                <Caption>{Formatter.formatPop(hour.pop)}</Caption>
-            </View>
-        )
-    }
-
-    const createHoursView = ()=>{
-        var hours = []
-
-        for(var i=0; i<24; i++){
-            hours.push(createHourEntry(props.data.hourly[i]))
+        for(var i=0; i<7; i++){
+            days.push(createDayEntry(props.data.daily[i]))
         } 
         
         return(
-            <ScrollView horizontal={true}>
-                {hours}
-            </ScrollView>
+            <View style={styles.dailyColumn}>
+                {days}
+            </View>
             
         )
     }
@@ -90,6 +71,7 @@ const WeatherForecast = (props) => {
   return (
     <Card>
         <Card.Content>
+            {createDaysView()}
         </Card.Content>
     </Card>
   );

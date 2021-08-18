@@ -8,7 +8,7 @@ const WeatherInfo = (props) => {
   const [data, setData] = useState(null);
 
   useEffect(async () => {
-    if(props != null && props.location != null && data == null){
+    if(props != null && props.location != null && (data == null || props.refresh === true)){
       var tmp = await ApiHandler.getWeatherDataForCoordinates(props.location.latitude,props.location.longitude)
       setData(tmp)
     }

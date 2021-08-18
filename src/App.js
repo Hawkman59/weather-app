@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   useColorScheme,
-  View,
+  ScrollView,
+  RefreshControl
 } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -19,6 +20,15 @@ const App = () => {
   };
 
   const [location, setLocation] = useState(null);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true)
+    var tmp = await ApiHandler.getLocation()
+    setLocation(tmp)
+    setRefreshing(false)
+  }, []);
+
   useEffect( async () => {
     if(location == null){
       var tmp = await ApiHandler.getLocation()
@@ -29,10 +39,16 @@ const App = () => {
 
   return (
       <PaperProvider>
-        <View
-          style={styles.container}>
-          <WeatherInfo location={location}></WeatherInfo>
-        </View>
+        <ScrollView
+          style={styles.container}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }>
+          <WeatherInfo location={location} refresh={refreshing}></WeatherInfo>
+        </ScrollView>
       </PaperProvider>
   );
 };
@@ -40,9 +56,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-    backgroundColor: "lightgrey"
+    padding: 20
    },
 });
 

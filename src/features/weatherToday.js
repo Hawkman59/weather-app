@@ -49,6 +49,7 @@ const WeatherToday = (props) => {
                 <View style={{flex: 3}}>
                     <View style={styles.containerColumn}>
                         <Caption>{props.data.current.weather[0].description}</Caption>
+                        <Caption>{Formatter.formatTemp(props.data.daily[0].temp.max) + " / " + Formatter.formatTemp(props.data.daily[0].temp.min)}</Caption>
                         <Caption>{"Gefühlt wie: " + Formatter.formatTemp(props.data.current.feels_like)}</Caption>
                     </View>
                 </View>

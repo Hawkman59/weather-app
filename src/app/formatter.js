@@ -36,7 +36,7 @@ class Formatter{
 
     static formatPop(pop){
 
-        return pop * 10 + "%"
+        return Math.floor(pop * 100) + "%"
     }
 }
 export default Formatter
