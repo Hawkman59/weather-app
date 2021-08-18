@@ -21,6 +21,11 @@ Start App:
 npm run start
 ```
 
+For first launch, connect your device with USB and execute follwing command to install the app for the first time
+```
+npx react-native run-android
+```
+
 Read Console Log
 ```
 adb logcat *:S ReactNative:V ReactNativeJS:V

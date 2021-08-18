@@ -60,3 +60,7 @@ buck-out/
 /ios/Pods/
 
 .env
+
+.VSCodeCunter/
+
+.vscode
