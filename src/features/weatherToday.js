@@ -86,10 +86,9 @@ const WeatherToday = (props) => {
             
         )
     }
-    
   return (
     <Card style={{marginBottom: 20}}>
-        <Card.Title title="Heute" subtitle={Formatter.formatDate(props.data.current.dt)}/>
+        <Card.Title title={props.city === null ? "" : props.city[0].name} subtitle={Formatter.formatDate(props.data.current.dt)}/>
         <Card.Content>
             {createCurrentWeather()}
             {createHoursView()}

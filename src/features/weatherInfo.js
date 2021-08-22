@@ -6,11 +6,14 @@ import WeatherForecast from './weatherForecast';
 
 const WeatherInfo = (props) => {
   const [data, setData] = useState(null);
+  const [city, setCity] = useState(null);
 
   useEffect(async () => {
     if(props != null && props.location != null && (data == null || props.refresh === true)){
       var tmp = await ApiHandler.getWeatherDataForCoordinates(props.location.latitude,props.location.longitude)
+      var tmp2 = await ApiHandler.getLocationNameFromCoordinates(props.location.latitude,props.location.longitude)
       setData(tmp)
+      setCity(tmp2)
     }
   }, [props]);
  
@@ -22,7 +25,7 @@ const WeatherInfo = (props) => {
       }
 
       {(data != null && data.current != null)  && 
-        <WeatherToday data={data}></WeatherToday>
+        <WeatherToday data={data} city={city}></WeatherToday>
       }
 
       {(data != null && data.current != null)  && 

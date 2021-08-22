@@ -38,7 +38,7 @@ const WeatherForecast = (props) => {
                 <View style={{flex: 3}}>
                     <Subheading>{Formatter.getNameOfDay(day.dt)}</Subheading>
                 </View>
-                <View style={{flex: 1}}>
+                <View style={{flex: 2}}>
                     <Caption>{Formatter.formatPop(day.pop)}</Caption>
                 </View>
                 <View style={{flex: 3}}>
@@ -46,7 +46,7 @@ const WeatherForecast = (props) => {
                     style={styles.weatherIcon}
                     />
                 </View>
-                <View style={{flex: 3}}>
+                <View style={{flex: 4}}>
                 <Text>{Formatter.formatTemp(day.temp.max) + " / " + Formatter.formatTemp(day.temp.min)}</Text>
                 </View>
             </View>

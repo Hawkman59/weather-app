@@ -31,6 +31,36 @@ class ApiHandler{
                     console.warn(code, message);
                 })
     }
+
+    static getLocationNameFromCoordinates(lat, lon){
+        if(lat === null || lat === undefined || lon === null || lon === undefined ){
+            return null
+        }
+        var url =  'http://api.openweathermap.org/geo/1.0/reverse?lat=' + lat + '&lon=' + lon + '&limit=1&appid=' + WEATHER_API_KEY
+        return fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                return json;
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    static getCoordinatesFromLocationName(name){
+        if(name === null || name === undefined){
+            return null
+        }
+        var url =  'http://api.openweathermap.org/geo/1.0/direct?q=' + name + '&limit=1&appid=' + WEATHER_API_KEY
+        return fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                return json;
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 }
 
 export default ApiHandler
